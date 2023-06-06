@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inspectorgadget-deployment
+  namespace: team-riker
+spec:
+  selector:
+    matchLabels:
+      app: inspectorgadget
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: inspectorgadget
+    spec:
+      containers:
+        - name: inspectorgadget
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   runAsNonRoot: false
+          #   seccompProfile:
+          #     type: RuntimeDefault
+          #   capabilities:
+          #     drop:
+          #     - ALL        
+          image: jelledruyts/inspectorgadget:latest
+          env:
+            - name: CLUSTER_NAME
+              value: {{.Values.spec.clusterName}}
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: '64Mi'
+              cpu: '250m'
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
+      {{ if .Values.spec.karpenterInstanceProfile }}
+      nodeSelector: # <- add nodeselector, toleration and spread constraitns
+        team: default
+        type: karpenter
+      tolerations:
+        - key: 'karpenter'
+          operator: 'Exists'
+          effect: 'NoSchedule'
+      {{ end }}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: inspectorgadget                 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inspectorgadget-service
+  namespace: team-riker
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: ClusterIP
+  selector:
+    app: inspectorgadget
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inspectorgadget-ingress-nginx
+  namespace: team-riker
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: 
+      http:
+        paths:
+          - path: /gadget(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: inspectorgadget-service
+                port:
+                  number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inspectorgadget-ingress
+  namespace: team-riker
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/tags: Environment=dev,Team=Riker
+spec:
+  ingressClassName: alb
+  rules:
+    - host: #skiapp.{{ .Values.spec.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: inspectorgadget-service
+                port:
+                  number: 80
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: inspectorgadget
+  namespace: team-riker
+spec:
+  selector:
+    matchLabels:
+      app: inspectorgadget
+  maxUnavailable: 1
