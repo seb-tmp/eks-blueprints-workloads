@@ -6,7 +6,7 @@ metadata:
   labels:
     app: skiapp
 spec:
-  replicas: 3
+  replicas: 20
   revisionHistoryLimit: 1
   selector:
     matchLabels:
