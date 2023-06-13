@@ -27,5 +27,4 @@ spec:
   serviceRef: 
     name: ingress-nginx-controller
     port: 80
-  targetGroups:
-    - arn:aws:elasticloadbalancing:us-west-2:124043462474:targetgroup/eks-blueprint-tg-blue/37996df7d43aa97a
+  targetGroupARN: "arn:aws:elasticloadbalancing:us-west-2:124043462474:targetgroup/eks-blueprint-tg-blue/37996df7d43aa97a"
