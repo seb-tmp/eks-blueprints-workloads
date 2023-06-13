@@ -18,12 +18,14 @@ spec:
                 port:
                   number: 80
 ---
-apiVersion: networking.k8s.io/v1
+apiVersion: elbv2.k8s.aws/v1beta1
 kind: TargetGroupBinding
 metadata:
   name: nginx-ingress-tgb
   namespace: ingress-nginx
 spec:
-  service: ingress-nginx-controller
+  serviceRef: 
+    name: ingress-nginx-controller
+    port: 80
   targetGroups:
     - arn:aws:elasticloadbalancing:us-west-2:124043462474:targetgroup/eks-blueprint-tg-blue/37996df7d43aa97a
