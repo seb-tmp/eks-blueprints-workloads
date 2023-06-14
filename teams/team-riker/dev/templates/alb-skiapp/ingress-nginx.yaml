@@ -4,8 +4,9 @@ metadata:
   name: skiapp-ingress-nginx
   namespace: team-riker
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    #kubernetes.io/ingress.class: "nginx"
 spec:
+  ingressClassName: nginx
   rules:
     - host: #skiapp.{{ .Values.spec.ingress.host }}
       http:
