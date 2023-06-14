@@ -15,7 +15,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: skiap-service
+                name: skiapp-service
                 port:
                   number: 80
 ---
