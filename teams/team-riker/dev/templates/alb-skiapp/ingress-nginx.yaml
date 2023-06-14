@@ -18,14 +18,3 @@ spec:
                 name: skiapp-service
                 port:
                   number: 80
----
-apiVersion: elbv2.k8s.aws/v1beta1
-kind: TargetGroupBinding
-metadata:
-  name: nginx-ingress-tgb
-  namespace: ingress-nginx
-spec:
-  serviceRef: 
-    name: ingress-nginx-controller
-    port: 80
-  targetGroupARN: "arn:aws:elasticloadbalancing:us-west-2:124043462474:targetgroup/eks-blueprint-tg-blue/e89d5a8ba3f3b199"
