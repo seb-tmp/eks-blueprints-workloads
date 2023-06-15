@@ -16,6 +16,9 @@ spec:
       containers:
         - name: skiapp
           image: sharepointoscar/skiapp:v2.1
+          env:
+          - name: CLUSTER_NAME
+            value: {{ .Values.spec.clusterName }}          
           ports:
             - containerPort: 8080
           resources:
