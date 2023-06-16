@@ -22,13 +22,16 @@ kind: Ingress
 metadata:
   name: riker-ingress-nginx
   namespace: team-riker
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2  
 spec:
   ingressClassName: nginx
   rules:
     - host: 
       http:
         paths:
-          - path: /guestbook
+          - path: /guestbook(/|$)(.*)
             pathType: Prefix
             backend:
               service:
