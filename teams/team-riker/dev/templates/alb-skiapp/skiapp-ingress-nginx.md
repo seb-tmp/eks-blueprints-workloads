@@ -23,8 +23,9 @@ metadata:
   name: riker-ingress-nginx
   namespace: team-riker
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2  
+    #nginx.ingress.kubernetes.io/use-regex: "true" 
+    #nginx.ingress.kubernetes.io/rewrite-target: /$2 
+    nginx.ingress.kubernetes.io/app-root: /guestbook
 spec:
   ingressClassName: nginx
   rules:
