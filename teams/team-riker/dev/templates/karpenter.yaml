@@ -11,7 +11,8 @@ spec:
     kubernetes.io/cluster/{{ .Values.spec.clusterName }}: '*'
     kubernetes.io/role/internal-elb: '1' # to select only private subnets
   securityGroupSelector:
-    aws:eks:cluster-name: '{{ .Values.spec.clusterName }}' # Choose only security groups of nodes
+    #aws:eks:cluster-name: '{{ .Values.spec.clusterName }}' # Choose only security groups of nodes
+    karpenter.sh/discovery: '{{ .Values.spec.clusterName }}'
   tags:
     karpenter.sh/cluster_name: {{.Values.spec.clusterName}}
     karpenter.sh/provisioner: default
