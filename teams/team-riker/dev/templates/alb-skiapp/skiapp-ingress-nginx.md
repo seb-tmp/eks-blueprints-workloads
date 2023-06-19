@@ -16,26 +16,3 @@ spec:
                 name: skiapp-service
                 port:
                   number: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: riker-ingress-nginx
-  namespace: team-riker
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true" 
-    nginx.ingress.kubernetes.io/rewrite-target: /$2 
-    #nginx.ingress.kubernetes.io/app-root: /guestbook
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: 
-      http:
-        paths:
-          - path: /guestbook(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: guestbook-ui
-                port:
-                  number: 80
