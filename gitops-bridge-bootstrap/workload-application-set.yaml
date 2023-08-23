@@ -49,6 +49,9 @@ spec:
               "region": "{{metadata.annotations.aws_region}}"
               "repoUrl": "{{metadata.annotations.workload_repo_url}}"
               "spec":
+                "source":
+                  "repoURL": "{{metadata.annotations.workload_repo_url}}"
+                  "targetRevision": "{{metadata.annotations.workload_repo_revision}}"
                 "blueprint": "terraform"
                 "clusterName": "{{metadata.annotations.cluster_name}}"
                 "env": "{{metadata.annotations.env}}"
@@ -58,9 +61,7 @@ spec:
                   "route53_weight": "{{metadata.annotations.route53_weight}}"
                   "type": "alb"
                 "karpenterInstanceProfile": "{{metadata.annotations.karpenter_node_instance_profile_name}}"
-                "source":
-                  "repoURL": "{{metadata.annotations.workload_repo_url}}"
-                  "targetRevision": "{{metadata.annotations.workload_repo_revision}}"
+                "target_group_arn": "{{metadata.annoataions.target_group_arn}}""
       destination:
         #namespace: '{{metadata.annotations.metadata_aws_cluster_autoscaler_namespace}}'
         name: '{{name}}'
