@@ -6,9 +6,24 @@ spec:
   syncPolicy:
     preserveResourcesOnDeletion: true
   generators:
-    - list:
-      elements:
-        - environment: dev
+    # - list:
+    #   elements:
+    #     - environment: dev
+    - matrix:
+        generators:
+          - git:
+              repoURL: 'git@github.com:seb-tmp/eks-blueprints-workloads'
+              #repoURL: https://github.com/seb-demo/eks-blueprints-workloads
+              revision: 'main'
+              directories:
+                - path: 'envs/dev/*'
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: akuity.io/argo-cd-cluster-name
+                    operator: NotIn
+                    values:
+                      - in-cluster        
   template:
     metadata:
       name: 'workload-{{name}}'
