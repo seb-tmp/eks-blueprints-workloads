@@ -167,7 +167,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: ostoy-frontend-service
+                name: ostoy-frontend-svc
                 port:
                   number: 8080
 ---
