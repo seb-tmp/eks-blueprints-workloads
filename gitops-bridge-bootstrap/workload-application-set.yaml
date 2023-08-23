@@ -61,7 +61,7 @@ spec:
                   "route53_weight": "{{metadata.annotations.route53_weight}}"
                   "type": "alb"
                 "karpenterInstanceProfile": "{{metadata.annotations.karpenter_node_instance_profile_name}}"
-                "target_group_arn": "{{metadata.annoataions.target_group_arn}}"
+                "target_group_arn": "{{metadata.annotations.target_group_arn}}"
       destination:
         #namespace: '{{metadata.annotations.metadata_aws_cluster_autoscaler_namespace}}'
         name: '{{name}}'
