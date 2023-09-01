@@ -14,8 +14,7 @@ spec:
     - matrix:
         generators:
           - git:
-              repoURL: 'git@github.com:seb-tmp/eks-blueprints-workloads'
-              #repoURL: https://github.com/seb-demo/eks-blueprints-workloads
+              repoURL: https://github.com/seb-tmp/eks-blueprints-workloads
               revision: 'main'
               directories:
                 - path: 'envs/dev/*'
