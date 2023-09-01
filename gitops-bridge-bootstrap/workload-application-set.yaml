@@ -13,11 +13,6 @@ spec:
     #     - environment: dev
     - matrix:
         generators:
-          - git:
-              repoURL: https://github.com/seb-tmp/eks-blueprints-workloads
-              revision: 'main'
-              directories:
-                - path: 'envs/dev/*'
           - clusters:
               selector:
                 matchExpressions:
@@ -25,6 +20,11 @@ spec:
                     operator: NotIn
                     values:
                       - in-cluster
+          - git:
+              repoURL: {{.metadata.annotations.gitops_workloads_url}}
+              revision: '{{.metadata.annotations.gitops_workloads_revision}}'
+              directories:
+                - path: '{{.metadata.annotations.gitops_workloads_path}}'
   template:
     metadata:
       name: 'workload-{{.name}}'
