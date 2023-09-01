@@ -61,7 +61,7 @@ spec:
                   "argocd_route53_weight": "{{ if index .metadata.annotations "argocd_route53_weight" }} {{ .metadata.annotations.argocd_route53_weight }}{{ else }}{{ end }}"
                   "host": {{ if index .metadata.annotations "eks_cluster_domain" }} {{ .metadata.annotations.eks_cluster_domain }}{{ else }}{{ end }}
                   "route53_weight": "{{ if index .metadata.annotations "route53_weight" }} {{ .metadata.annotations.route53_weight }}{{ else }}{{ end }}"
-                  "ecsfrontend_route53_weight": "{{.metadata.annotations.ecsfrontend_route53_weight}}"
+                  "ecsfrontend_route53_weight": {{ if index .metadata.annotations "ecsfrontend_route53_weight" }} {{ .metadata.annotations.ecsfrontend_route53_weight }}{{ else }}{{ end }}"
                   "type": "{{.metadata.annotations.ingress_type}}"
                 "karpenterInstanceProfile": "{{.metadata.annotations.karpenter_node_instance_profile_name}}"
                 "target_group_arn": {{ if index .metadata.annotations "target_group_arn" }} {{ .metadata.annotations.target_group_arn }}{{ else }}{{ end }}
