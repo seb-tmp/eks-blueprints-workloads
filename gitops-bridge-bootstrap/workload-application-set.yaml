@@ -24,8 +24,8 @@ spec:
               repoURL: '{{.metadata.annotations.gitops_workloads_url}}'
               revision: '{{.metadata.annotations.gitops_workloads_revision}}'
               directories:
-                #- path: '{{.metadata.annotations.gitops_workloads_path}}'
-                - path: 'envs/dev/*'
+                - path: '{{.metadata.annotations.gitops_workloads_path}}/*'
+                #- path: 'envs/dev/*'
   template:
     metadata:
       name: 'workload-{{.name}}'
