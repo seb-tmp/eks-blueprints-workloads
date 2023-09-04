@@ -5,7 +5,7 @@ metadata:
   namespace: team-riker
   annotations:
 {{ if .Values.spec.external_lb_dns }}  
-    link.argocd.argoproj.io/external-url: 'https://{{ .Values.spec.external_lb_dns }}'
+    link.argocd.argoproj.io/external-url: {{ .Values.spec.external_lb_url }}
 {{ end }}    
 spec:
   ingressClassName: nginx
