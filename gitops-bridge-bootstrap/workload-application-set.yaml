@@ -25,7 +25,6 @@ spec:
               revision: '{{.metadata.annotations.gitops_workloads_revision}}'
               directories:
                 - path: '{{.metadata.annotations.gitops_workloads_path}}/*'
-                #- path: 'envs/dev/*'
   template:
     metadata:
       name: 'workload-{{.name}}'
@@ -65,6 +64,7 @@ spec:
                   "type": "{{.metadata.annotations.ingress_type}}"
                 "karpenterInstanceProfile": "{{.metadata.annotations.karpenter_node_instance_profile_name}}"
                 "target_group_arn": {{ if index .metadata.annotations "target_group_arn" }} {{ .metadata.annotations.target_group_arn }}{{ else }}{{ end }}
+                "external_lb_dns": {{ if index .metadata.annotations "external_lb_dns" }} {{ .metadata.annotations.external_lb_dns }}{{ else }}{{ end }}                
       destination:
         #namespace: '{{metadata.annotations.metadata_aws_cluster_autoscaler_namespace}}'
         name: '{{.name}}'

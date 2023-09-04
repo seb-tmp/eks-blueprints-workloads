@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   name: skiapp-ingress-nginx
   namespace: team-riker
+  annotations:
+{{ if .Values.spec.external_lb_dns }}  
+    link.argocd.argoproj.io/external-url: {{ .values.spec.external_lb_dns }}
+{{ end }}    
 spec:
   ingressClassName: nginx
   rules:
