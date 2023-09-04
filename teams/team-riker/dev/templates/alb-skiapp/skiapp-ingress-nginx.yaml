@@ -4,7 +4,7 @@ metadata:
   name: skiapp-ingress-nginx
   namespace: team-riker
   annotations:
-{{ if .Values.spec.external_lb_dns }}  
+{{ if .Values.spec.external_lb_url }}  
     link.argocd.argoproj.io/external-url: {{ .Values.spec.external_lb_url }}
 {{ end }}    
 spec:
