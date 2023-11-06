@@ -7,7 +7,7 @@ metadata:
     {{- toYaml .Values.labels | nindent 4 }}
 spec:
   amiFamily: Bottlerocket
-  instanceProfile: '{{ .Values.spec.karpenterInstanceProfile }}'
+  #instanceProfile: '{{ .Values.spec.karpenterInstanceProfile }}'
   subnetSelector:
     kubernetes.io/cluster/{{ .Values.spec.clusterName }}: '*'
     #aws:cloudformation:stack-name: '{{ .Values.spec.clusterName }}' # If created with CDK
@@ -38,7 +38,7 @@ metadata:
   labels:
     {{- toYaml .Values.labels | nindent 4 }}  
 spec:
-  instanceProfile: '{{ .Values.spec.karpenterInstanceProfile }}'
+  #instanceProfile: '{{ .Values.spec.karpenterInstanceProfile }}'
   subnetSelector:
     kubernetes.io/cluster/{{ .Values.spec.clusterName }}: '*'
     kubernetes.io/role/internal-elb: '1' # to select only private subnets
