@@ -1,4 +1,4 @@
-{{ if .Values.spec.karpenterInstanceProfile }}
+{{ if .Values.spec.karpenterNodeIAMRoleName }}
 apiVersion: karpenter.k8s.aws/v1alpha1
 kind: AWSNodeTemplate
 metadata:
@@ -7,7 +7,7 @@ metadata:
     {{- toYaml .Values.labels | nindent 4 }}
 spec:
   amiFamily: Bottlerocket
-  instanceProfile: '{{ .Values.spec.karpenterInstanceProfile }}'
+  #instanceProfile: '{{ .Values.spec.karpenterInstanceProfile }}'
   #instanceProfile: {{ .Values.spec.clusterName }}-managed-ondemand
   subnetSelector:
     kubernetes.io/cluster/{{ .Values.spec.clusterName }}: '*'
@@ -42,7 +42,7 @@ metadata:
 spec:
   #amiFamily: Bottlerocket
   #instanceProfile: '{{ .Values.spec.karpenterInstanceProfile }}'
-  instanceProfile: {{ .Values.spec.clusterName }}-managed-ondemand
+  #instanceProfile: {{ .Values.spec.clusterName }}-managed-ondemand
   subnetSelector:
     kubernetes.io/cluster/{{ .Values.spec.clusterName }}: '*'
     kubernetes.io/role/internal-elb: '1' # to select only private subnets

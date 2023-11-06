@@ -89,7 +89,7 @@ spec:
         - name: datavol
           persistentVolumeClaim:
             claimName: ostoy-pvc
-      {{ if .Values.spec.karpenterInstanceProfile }}
+      {{ if .Values.spec.karpenterNodeIAMRoleName }}
       nodeSelector: # <- add nodeselector, toleration and spread constraitns
         team: default
         type: karpenter

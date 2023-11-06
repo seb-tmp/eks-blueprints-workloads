@@ -1,5 +1,5 @@
 
-{{ if .Values.spec.karpenterInstanceProfile }}
+{{ if .Values.spec.karpenterNodeIAMRoleName }}
 apiVersion: karpenter.sh/v1alpha5
 kind: Provisioner
 metadata:

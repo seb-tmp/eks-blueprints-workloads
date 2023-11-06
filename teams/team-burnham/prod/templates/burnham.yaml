@@ -96,7 +96,7 @@ spec:
             requests:
               cpu: 250m
               memory: 50Mi
-      {{ if .Values.spec.karpenterInstanceProfile }}
+      {{ if .Values.spec.karpenterNodeIAMRoleName }}
       nodeSelector:
         team: burnham
         type: karpenter

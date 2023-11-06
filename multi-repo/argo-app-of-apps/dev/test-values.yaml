@@ -34,4 +34,4 @@
           "memory": "256Mi"
   "blueprint": "terraform"
   "clusterName": "eks-blueprint-blue"
-  "karpenterInstanceProfile": "eks-blueprint-blue-managed-ondemand"
+  "karpenterNodeIAMRoleName": "eks-blueprint-blue-managed-ondemand"

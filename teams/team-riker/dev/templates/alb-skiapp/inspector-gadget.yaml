@@ -36,7 +36,7 @@ spec:
             limits:
               memory: '128Mi'
               cpu: '500m'
-      {{ if .Values.spec.karpenterInstanceProfile }}
+      {{ if .Values.spec.karpenterNodeIAMRoleName }}
       nodeSelector: # <- add nodeselector, toleration and spread constraitns
         team: default
         type: karpenter
